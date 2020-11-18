@@ -1,12 +1,11 @@
 package io.github.wjur.avsc2avdl.domain
 
-import java.lang.StringBuilder
 
 class SchemaPrinter {
     fun writeString(schema: Schema): String {
         return """@namespace("${schema.namespace}")
 protocol ${schema.name} {
-${tabs(0)}record ${schema.name} {
+${schema.writeDocString(0)}${tabs(0)}record ${schema.name} {
 ${schema.fields.writeFieldsString(1)}${tabs(0)}
 ${tabs(0)}}
 
@@ -15,33 +14,33 @@ ${schema.fields.writeTypesString(0)}
     }
 }
 
-private fun UnionTypeDef.subRecords(): Sequence<RecordTypeDef> {
+private fun UnionTypeDef.subRecords(): Sequence<PrintableClass> {
     return this.types.asSequence()
         .flatMap { it.subRecords() }
 }
 
-private fun RecordTypeDef.subRecords(): Sequence<RecordTypeDef> {
-    return sequenceOf(this) + this.fields.asSequence()
+private fun RecordTypeDef.subRecords(): Sequence<PrintableClass> {
+    return sequenceOf(PrintableRecord(this)) + this.fields.asSequence()
         .flatMap { it.type.subRecords() }
 }
 
-private fun ArrayTypeDef.subRecords(): Sequence<RecordTypeDef> {
+private fun ArrayTypeDef.subRecords(): Sequence<PrintableClass> {
     return itemType.subRecords()
 }
 
-private fun MapTypeDef.subRecords(): Sequence<RecordTypeDef> {
+private fun MapTypeDef.subRecords(): Sequence<PrintableClass> {
     return valueType.subRecords()
 }
 
-private fun TypeDef.subRecords(): Sequence<RecordTypeDef> {
+private fun TypeDef.subRecords(): Sequence<PrintableClass> {
     return when (this) {
         is ReferenceByNameTypeDef,
         NullTypeDef,
         IntTypeDef,
         LongTypeDef,
         StringTypeDef,
-        is EnumTypeDef,
         BooleanTypeDef -> emptySequence()
+        is EnumTypeDef -> sequenceOf(PrintableEnum(this))
         is UnionTypeDef -> this.subRecords()
         is RecordTypeDef -> this.subRecords()
         is MapTypeDef -> this.subRecords()
@@ -52,15 +51,11 @@ private fun TypeDef.subRecords(): Sequence<RecordTypeDef> {
 private fun List<Field>.writeTypesString(level: Int): String {
     return this.asSequence()
         .flatMap { it.type.subRecords() }
-        .map {
-            """${it.writeDocString(level)}${tabs(level)}record ${it.name} {
-${it.fields.writeFieldsString(level + 1)}
-${tabs(level)}}
-"""
-        }.joinToString("\n\n")
+        .map { it.writeString(level) }
+        .joinToString("\n\n")
 }
 
-private fun RecordTypeDef.writeDocString(level: Int): String {
+private fun Documentable.writeDocString(level: Int): String {
     return if (this.documentation != null) "${tabs(level)}/** ${this.documentation} */\n" else ""
 }
 
@@ -100,8 +95,29 @@ private fun writeTypeName(type1: TypeDef): String {
     }
 }
 
-private fun Field.writeDocString(level: Int): String? {
-    return if (this.documentation != null) "${tabs(level)}/** ${this.documentation} */\n" else ""
+private fun tabs(level: Int): String = (0..level).joinToString("") { "    " }
+
+private interface PrintableClass {
+    fun writeString(level: Int): String
 }
 
-private fun tabs(level: Int): String = (0..level).joinToString("") { "  " }
+data class PrintableRecord(val record: RecordTypeDef) : PrintableClass {
+    override fun writeString(level: Int): String {
+        return """${record.writeDocString(level)}${tabs(level)}record ${record.name} {
+${record.fields.writeFieldsString(level + 1)}
+${tabs(level)}}"""
+    }
+}
+
+data class PrintableEnum(val enum: EnumTypeDef) : PrintableClass {
+    override fun writeString(level: Int): String {
+        return """${enum.writeDocString(level)}${tabs(level)}enum ${enum.name} {
+${enum.symbols.writeSymbolsString(level + 1)}
+${tabs(level)}}"""
+    }
+
+}
+
+private fun List<String>.writeSymbolsString(level: Int): String {
+    return this.joinToString(",\n") { symbolName -> """${tabs(level)}${symbolName}""" }
+}

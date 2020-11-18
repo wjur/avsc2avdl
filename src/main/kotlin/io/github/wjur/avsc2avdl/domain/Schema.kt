@@ -3,16 +3,16 @@ package io.github.wjur.avsc2avdl.domain
 data class Schema(
     val name: String,
     val namespace: String,
-    val documentation: String?,
+    override val documentation: String?,
     val fields: List<Field>
-)
+) : Documentable
 
 data class Field(
     val name: String,
-    val documentation: String?,
+    override val documentation: String?,
     val type: TypeDef,
     val default: DefaultValue?
-)
+) : Documentable
 
 sealed class DefaultValue
 object DefaultNull : DefaultValue()
@@ -30,14 +30,18 @@ object BooleanTypeDef : TypeDef()
 data class UnionTypeDef(val types: List<TypeDef>) : TypeDef()
 data class RecordTypeDef(
     val name: String,
-    val documentation: String?,
+    override val documentation: String?,
     val fields: List<Field>
-) : TypeDef()
+) : TypeDef(), Documentable
 data class MapTypeDef(val valueType: TypeDef) : TypeDef()
 data class ArrayTypeDef(val itemType: TypeDef) : TypeDef()
 data class EnumTypeDef(
     val name: String,
-    val documentation: String?,
+    override val documentation: String?,
     val symbols: List<String>
-) : TypeDef()
+) : TypeDef(), Documentable
 data class ReferenceByNameTypeDef(val name: String) : TypeDef()
+
+interface Documentable {
+    val documentation: String?
+}
