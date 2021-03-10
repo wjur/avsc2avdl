@@ -38,7 +38,7 @@ private fun TypeDef.subRecords(): Sequence<PrintableClass> {
         NullTypeDef,
         IntTypeDef,
         LongTypeDef,
-        StringTypeDef,
+        is StringTypeDef,
         BooleanTypeDef -> emptySequence()
         is EnumTypeDef -> sequenceOf(PrintableEnum(this))
         is UnionTypeDef -> this.subRecords()
@@ -84,7 +84,7 @@ private fun writeTypeName(type1: TypeDef): String {
         NullTypeDef -> "null"
         IntTypeDef -> "int"
         LongTypeDef -> "long"
-        StringTypeDef -> "string"
+        is StringTypeDef -> "string"
         BooleanTypeDef -> "boolean"
         is UnionTypeDef -> """union { ${type1.types.joinToString(", ") { writeTypeName(it) }} }"""
         is RecordTypeDef -> type1.name

@@ -66,6 +66,7 @@ private fun JsonElement.toSchemaTypeDef(): TypeDef {
                 "record" -> this.toRecordTypeDef()
                 "enum" -> this.toEnumTypeDef()
                 "map" -> this.toMapTypeDef()
+                "string" -> this.toStringTypeDef()
                 else -> throw IllegalArgumentException(this.toString())
             }
         }
@@ -82,6 +83,10 @@ private fun JsonObject.toEnumTypeDef(): EnumTypeDef {
 
 private fun JsonObject.toMapTypeDef(): MapTypeDef {
     return MapTypeDef(this["values"]?.toSchemaTypeDef()!!)
+}
+
+private fun JsonObject.toStringTypeDef(): StringTypeDef {
+    return StringTypeDef(this["avro.java.string"]?.jsonPrimitive?.content!!)
 }
 
 private fun JsonObject.toArrayTypeDef(): ArrayTypeDef {
@@ -106,7 +111,7 @@ private fun String.toSchemaPrimitiveType(): TypeDef {
         "null" -> NullTypeDef
         "int" -> IntTypeDef
         "long" -> LongTypeDef
-        "string" -> StringTypeDef
+        "string" -> StringTypeDef()
         "boolean" -> BooleanTypeDef
         else -> ReferenceByNameTypeDef(this)
     }

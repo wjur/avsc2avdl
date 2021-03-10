@@ -25,7 +25,7 @@ sealed class TypeDef
 object NullTypeDef : TypeDef()
 object IntTypeDef : TypeDef()
 object LongTypeDef : TypeDef()
-object StringTypeDef : TypeDef()
+data class StringTypeDef(val javaClass: String? = null) : TypeDef()
 object BooleanTypeDef : TypeDef()
 data class UnionTypeDef(val types: List<TypeDef>) : TypeDef()
 data class RecordTypeDef(
