@@ -19,6 +19,8 @@ object DefaultNull : DefaultValue()
 data class DefaultString(val value: String) : DefaultValue()
 data class DefaultNumber(val value: Number) : DefaultValue()
 data class DefaultBoolean(val value: Boolean): DefaultValue()
+object DefaultEmptyArray : DefaultValue()
+object DefaultEmptyMap : DefaultValue()
 
 
 sealed class TypeDef

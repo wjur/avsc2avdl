@@ -52,6 +52,14 @@ private fun JsonElement?.toSchemaDefault(): DefaultValue? {
             val stringV = this.takeIf { it.isString }?.let { DefaultString(it.content) }
             booleanV ?: longV ?: floatV ?: stringV
         }
+        is JsonArray -> {
+            require(this.isEmpty())
+            DefaultEmptyArray
+        }
+        is JsonObject -> {
+            require(this.isEmpty())
+            DefaultEmptyMap
+        }
         else -> throw IllegalArgumentException(this.toString())
     }
 }

@@ -72,6 +72,8 @@ private fun Field.writeDefault(): String {
         is DefaultString -> " = \"${default.value}\""
         is DefaultNumber -> " = ${default.value}"
         is DefaultBoolean -> " = ${default.value}"
+        is DefaultEmptyMap -> " = {}"
+        is DefaultEmptyArray -> " = []"
     }
 }
 

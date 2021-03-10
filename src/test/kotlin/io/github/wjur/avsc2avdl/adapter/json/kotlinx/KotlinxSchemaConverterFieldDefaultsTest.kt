@@ -57,6 +57,30 @@ internal class KotlinxSchemaConverterFieldDefaultsTest {
         assertThat(schema.fields.first().default).isEqualTo(DefaultBoolean(true))
     }
 
+    @Test
+    fun `should read array default`() {
+        // given
+        val defaultString = "[]"
+
+        // when
+        val schema = converter.convert(someSchemaWithField(defaultString))
+
+        // then
+        assertThat(schema.fields.first().default).isEqualTo(DefaultEmptyArray)
+    }
+
+    @Test
+    fun `should read map default`() {
+        // given
+        val defaultString = "{}"
+
+        // when
+        val schema = converter.convert(someSchemaWithField(defaultString))
+
+        // then
+        assertThat(schema.fields.first().default).isEqualTo(DefaultEmptyMap)
+    }
+
 
     private fun someSchemaWithField(defaultString: String): String =
         """
