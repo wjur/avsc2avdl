@@ -1,6 +1,17 @@
 package io.github.wjur.avsc2avdl.adapter.json.kotlinx
 
-import io.github.wjur.avsc2avdl.domain.*
+import io.github.wjur.avsc2avdl.domain.ArrayTypeDef
+import io.github.wjur.avsc2avdl.domain.BooleanTypeDef
+import io.github.wjur.avsc2avdl.domain.EnumTypeDef
+import io.github.wjur.avsc2avdl.domain.Field
+import io.github.wjur.avsc2avdl.domain.IntTypeDef
+import io.github.wjur.avsc2avdl.domain.LongTypeDef
+import io.github.wjur.avsc2avdl.domain.MapTypeDef
+import io.github.wjur.avsc2avdl.domain.NullTypeDef
+import io.github.wjur.avsc2avdl.domain.RecordTypeDef
+import io.github.wjur.avsc2avdl.domain.ReferenceByNameTypeDef
+import io.github.wjur.avsc2avdl.domain.StringTypeDef
+import io.github.wjur.avsc2avdl.domain.UnionTypeDef
 import org.assertj.core.api.Assertions.assertThat
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Test

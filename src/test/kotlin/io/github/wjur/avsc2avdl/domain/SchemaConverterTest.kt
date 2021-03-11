@@ -3,7 +3,7 @@ package io.github.wjur.avsc2avdl.domain
 import io.github.wjur.avsc2avdl.adapter.json.kotlinx.KotlinxSchemaReader
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import java.util.*
+import java.util.Scanner
 
 internal class SchemaConverterTest {
 

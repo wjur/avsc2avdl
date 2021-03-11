@@ -1,15 +1,41 @@
 package io.github.wjur.avsc2avdl.adapter.json.kotlinx
 
-import io.github.wjur.avsc2avdl.domain.*
+import io.github.wjur.avsc2avdl.domain.ArrayTypeDef
 import io.github.wjur.avsc2avdl.domain.BooleanTypeDef
+import io.github.wjur.avsc2avdl.domain.DefaultBoolean
+import io.github.wjur.avsc2avdl.domain.DefaultEmptyArray
+import io.github.wjur.avsc2avdl.domain.DefaultEmptyMap
+import io.github.wjur.avsc2avdl.domain.DefaultNull
+import io.github.wjur.avsc2avdl.domain.DefaultNumber
+import io.github.wjur.avsc2avdl.domain.DefaultString
+import io.github.wjur.avsc2avdl.domain.DefaultValue
+import io.github.wjur.avsc2avdl.domain.EnumTypeDef
+import io.github.wjur.avsc2avdl.domain.Field
 import io.github.wjur.avsc2avdl.domain.IntTypeDef
 import io.github.wjur.avsc2avdl.domain.LongTypeDef
+import io.github.wjur.avsc2avdl.domain.MapTypeDef
 import io.github.wjur.avsc2avdl.domain.NullTypeDef
 import io.github.wjur.avsc2avdl.domain.RecordTypeDef
+import io.github.wjur.avsc2avdl.domain.ReferenceByNameTypeDef
+import io.github.wjur.avsc2avdl.domain.Schema
+import io.github.wjur.avsc2avdl.domain.SchemaReader
 import io.github.wjur.avsc2avdl.domain.StringTypeDef
+import io.github.wjur.avsc2avdl.domain.TypeDef
 import io.github.wjur.avsc2avdl.domain.UnionTypeDef
+import io.github.wjur.avsc2avdl.domain.UserDataType
 import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.*
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonNull
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.booleanOrNull
+import kotlinx.serialization.json.decodeFromJsonElement
+import kotlinx.serialization.json.floatOrNull
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.longOrNull
 
 val json = Json { ignoreUnknownKeys = true }
 

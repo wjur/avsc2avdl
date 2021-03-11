@@ -1,6 +1,11 @@
 package io.github.wjur.avsc2avdl.adapter.json.kotlinx
 
-import io.github.wjur.avsc2avdl.domain.*
+import io.github.wjur.avsc2avdl.domain.DefaultBoolean
+import io.github.wjur.avsc2avdl.domain.DefaultEmptyArray
+import io.github.wjur.avsc2avdl.domain.DefaultEmptyMap
+import io.github.wjur.avsc2avdl.domain.DefaultNull
+import io.github.wjur.avsc2avdl.domain.DefaultNumber
+import io.github.wjur.avsc2avdl.domain.DefaultString
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
