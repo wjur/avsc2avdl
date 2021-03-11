@@ -6,7 +6,7 @@ class SchemaPrinter {
         return """@namespace("${schema.namespace}")
 protocol ${schema.name} {
 ${schema.writeDocString(0)}${tabs(0)}record ${schema.name} {
-${schema.fields.writeFieldsString(1)}${tabs(0)}
+${schema.fields.writeFieldsString(1)}
 ${tabs(0)}}
 
 ${schema.fields.writeTypesString(0)}
@@ -60,9 +60,9 @@ private fun Documentable.writeDocString(level: Int): String {
 }
 
 private fun List<Field>.writeFieldsString(level: Int): String {
-    return this.map {
+    return this.joinToString("\n\n") {
         """${it.writeDocString(level)}${tabs(level)}${it.writeTypeName()} ${it.name}${it.writeDefault()};"""
-    }.joinToString("\n\n")
+    }
 }
 
 private fun Field.writeDefault(): String {
