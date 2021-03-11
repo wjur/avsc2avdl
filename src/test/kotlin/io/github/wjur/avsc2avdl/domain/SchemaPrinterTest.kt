@@ -131,6 +131,56 @@ protocol SchemaName {
         assertThat(printer.writeString(schema(field))).isEqualTo(expected)
     }
 
+    @Test
+    fun `should print schema with array field`() {
+        // given
+        val field = Field(
+            "testField",
+            "this is test field doc",
+            ArrayTypeDef(IntTypeDef),
+            DefaultEmptyArray
+        )
+
+        val expected = """@namespace("some.namespace")
+protocol SchemaName {
+    /** some schema docs */
+    record SchemaName {
+        /** this is test field doc */
+        array<int> testField = [];
+    }
+
+
+}"""
+
+        // expect
+        assertThat(printer.writeString(schema(field))).isEqualTo(expected)
+    }
+
+    @Test
+    fun `should print schema with map field`() {
+        // given
+        val field = Field(
+            "testField",
+            "this is test field doc",
+            MapTypeDef(IntTypeDef),
+            DefaultEmptyMap
+        )
+
+        val expected = """@namespace("some.namespace")
+protocol SchemaName {
+    /** some schema docs */
+    record SchemaName {
+        /** this is test field doc */
+        map<int> testField = {};
+    }
+
+
+}"""
+
+        // expect
+        assertThat(printer.writeString(schema(field))).isEqualTo(expected)
+    }
+
     private fun schema(field: Field): Schema =
         Schema(
             "SchemaName",
