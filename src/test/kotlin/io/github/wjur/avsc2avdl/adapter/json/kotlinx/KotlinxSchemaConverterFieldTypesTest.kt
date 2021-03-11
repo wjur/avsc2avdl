@@ -5,9 +5,9 @@ import org.assertj.core.api.Assertions.assertThat
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Test
 
-internal class KotlinxSchemaConverterFieldTypesTest {
+internal class KotlinxSchemaReaderFieldTypesTest {
 
-    private val converter = KotlinxSchemaConverter()
+    private val converter = KotlinxSchemaReader()
 
     @Test
     fun `should read string field`() {
@@ -24,7 +24,7 @@ internal class KotlinxSchemaConverterFieldTypesTest {
 
 
         // when
-        val schema = converter.convert(someSchema(fieldString))
+        val schema = converter.read(someSchema(fieldString))
 
         // then
         val field = schema.fields.first()
@@ -50,7 +50,7 @@ internal class KotlinxSchemaConverterFieldTypesTest {
 
 
         // when
-        val schema = converter.convert(someSchema(fieldString))
+        val schema = converter.read(someSchema(fieldString))
 
         // then
         val field = schema.fields.first()
@@ -73,7 +73,7 @@ internal class KotlinxSchemaConverterFieldTypesTest {
 
 
         // when
-        val schema = converter.convert(someSchema(fieldString))
+        val schema = converter.read(someSchema(fieldString))
 
         // then
         val field = schema.fields.first()
@@ -96,7 +96,7 @@ internal class KotlinxSchemaConverterFieldTypesTest {
 
 
         // when
-        val schema = converter.convert(someSchema(fieldString))
+        val schema = converter.read(someSchema(fieldString))
 
         // then
         val field = schema.fields.first()
@@ -119,7 +119,7 @@ internal class KotlinxSchemaConverterFieldTypesTest {
 
 
         // when
-        val schema = converter.convert(someSchema(fieldString))
+        val schema = converter.read(someSchema(fieldString))
 
         // then
         val field = schema.fields.first()
@@ -147,7 +147,7 @@ internal class KotlinxSchemaConverterFieldTypesTest {
 
 
         // when
-        val schema = converter.convert(someSchema(fieldString))
+        val schema = converter.read(someSchema(fieldString))
 
         // then
         val field = schema.fields.first()
@@ -181,7 +181,7 @@ internal class KotlinxSchemaConverterFieldTypesTest {
 
 
         // when
-        val schema = converter.convert(someSchema(fieldString))
+        val schema = converter.read(someSchema(fieldString))
 
         // then
         val field = schema.fields.first()
@@ -206,7 +206,7 @@ internal class KotlinxSchemaConverterFieldTypesTest {
 
 
         // when
-        val schema = converter.convert(someSchema(fieldString))
+        val schema = converter.read(someSchema(fieldString))
 
         // then
         val field = schema.fields.first()
@@ -243,7 +243,7 @@ internal class KotlinxSchemaConverterFieldTypesTest {
 
 
         // when
-        val schema = converter.convert(someSchema(fieldString))
+        val schema = converter.read(someSchema(fieldString))
 
         // then
         val field = schema.fields.first()
@@ -274,7 +274,7 @@ internal class KotlinxSchemaConverterFieldTypesTest {
 
 
         // when
-        val schema = converter.convert(someSchema(fieldString))
+        val schema = converter.read(someSchema(fieldString))
 
         // then
         val field = schema.fields.first()
@@ -300,7 +300,7 @@ internal class KotlinxSchemaConverterFieldTypesTest {
 
 
         // when
-        val schema = converter.convert(someSchema(fieldString))
+        val schema = converter.read(someSchema(fieldString))
 
         // then
         val field = schema.fields.first()

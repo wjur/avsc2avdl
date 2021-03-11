@@ -13,8 +13,8 @@ import kotlinx.serialization.json.*
 
 val json = Json { ignoreUnknownKeys = true }
 
-class KotlinxSchemaConverter : SchemaConverter {
-    override fun convert(jsonString: String): Schema {
+class KotlinxSchemaReader : SchemaReader {
+    override fun read(jsonString: String): Schema {
 
         val avscSchema = json.decodeFromString<AvscSchema>(jsonString)
         assert(avscSchema.type == "record") {

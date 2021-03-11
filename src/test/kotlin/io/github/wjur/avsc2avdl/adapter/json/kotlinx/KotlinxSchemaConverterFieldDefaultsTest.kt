@@ -2,12 +2,11 @@ package io.github.wjur.avsc2avdl.adapter.json.kotlinx
 
 import io.github.wjur.avsc2avdl.domain.*
 import org.assertj.core.api.Assertions.assertThat
-import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Test
 
-internal class KotlinxSchemaConverterFieldDefaultsTest {
+internal class KotlinxSchemaReaderFieldDefaultsTest {
 
-    private val converter = KotlinxSchemaConverter()
+    private val converter = KotlinxSchemaReader()
 
     @Test
     fun `should read null default`() {
@@ -15,7 +14,7 @@ internal class KotlinxSchemaConverterFieldDefaultsTest {
         val defaultString = "null"
 
         // when
-        val schema = converter.convert(someSchemaWithField(defaultString))
+        val schema = converter.read(someSchemaWithField(defaultString))
 
         // then
         assertThat(schema.fields.first().default).isEqualTo(DefaultNull)
@@ -27,7 +26,7 @@ internal class KotlinxSchemaConverterFieldDefaultsTest {
         val defaultString = """ "someValue" """
 
         // when
-        val schema = converter.convert(someSchemaWithField(defaultString))
+        val schema = converter.read(someSchemaWithField(defaultString))
 
         // then
         assertThat(schema.fields.first().default).isEqualTo(DefaultString("someValue"))
@@ -39,7 +38,7 @@ internal class KotlinxSchemaConverterFieldDefaultsTest {
         val defaultString = "123"
 
         // when
-        val schema = converter.convert(someSchemaWithField(defaultString))
+        val schema = converter.read(someSchemaWithField(defaultString))
 
         // then
         assertThat((schema.fields.first().default as DefaultNumber).value.toLong()).isEqualTo(123L)
@@ -51,7 +50,7 @@ internal class KotlinxSchemaConverterFieldDefaultsTest {
         val defaultString = "true"
 
         // when
-        val schema = converter.convert(someSchemaWithField(defaultString))
+        val schema = converter.read(someSchemaWithField(defaultString))
 
         // then
         assertThat(schema.fields.first().default).isEqualTo(DefaultBoolean(true))
@@ -63,7 +62,7 @@ internal class KotlinxSchemaConverterFieldDefaultsTest {
         val defaultString = "[]"
 
         // when
-        val schema = converter.convert(someSchemaWithField(defaultString))
+        val schema = converter.read(someSchemaWithField(defaultString))
 
         // then
         assertThat(schema.fields.first().default).isEqualTo(DefaultEmptyArray)
@@ -75,7 +74,7 @@ internal class KotlinxSchemaConverterFieldDefaultsTest {
         val defaultString = "{}"
 
         // when
-        val schema = converter.convert(someSchemaWithField(defaultString))
+        val schema = converter.read(someSchemaWithField(defaultString))
 
         // then
         assertThat(schema.fields.first().default).isEqualTo(DefaultEmptyMap)

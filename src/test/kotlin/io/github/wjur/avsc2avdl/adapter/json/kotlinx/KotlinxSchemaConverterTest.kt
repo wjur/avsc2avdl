@@ -4,9 +4,9 @@ import org.assertj.core.api.Assertions.assertThat
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Test
 
-internal class KotlinxSchemaConverterTest {
+internal class KotlinxSchemaReaderTest {
 
-    private val converter = KotlinxSchemaConverter()
+    private val converter = KotlinxSchemaReader()
 
     @Test
     fun `should read schema header`() {
@@ -22,7 +22,7 @@ internal class KotlinxSchemaConverterTest {
         """.trimIndent()
 
         // when
-        val schema = converter.convert(schemaString)
+        val schema = converter.read(schemaString)
 
         // then
         assertThat(schema.name).isEqualTo("ObjectName")
@@ -50,7 +50,7 @@ internal class KotlinxSchemaConverterTest {
         """.trimIndent()
 
         // when
-        val schema = converter.convert(schemaString)
+        val schema = converter.read(schemaString)
 
         // then
         assertThat(schema.fields.first().documentation).isEqualTo("This is someField docs!")
