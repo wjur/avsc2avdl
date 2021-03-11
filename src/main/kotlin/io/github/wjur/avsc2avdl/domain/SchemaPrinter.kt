@@ -10,7 +10,8 @@ ${schema.fields.writeFieldsString(1)}
 ${tabs(0)}}
 
 ${schema.fields.writeTypesString(0)}
-}"""
+}
+"""
     }
 }
 
@@ -61,7 +62,7 @@ private fun Documentable.writeDocString(level: Int): String {
 
 private fun List<Field>.writeFieldsString(level: Int): String {
     return this.joinToString("\n\n") {
-        """${it.writeDocString(level)}${tabs(level)}${it.writeTypeName()} ${it.name}${it.writeDefault()};"""
+        """${it.writeDocString(level)}${tabs(level)}${it.writeTypeName()}${it.writeUserDataType()} ${it.name}${it.writeDefault()};"""
     }
 }
 
@@ -80,6 +81,8 @@ private fun Field.writeDefault(): String {
 private fun Field.writeTypeName(): String {
     return writeTypeName(type)
 }
+
+private fun Field.writeUserDataType(): String = userDataType?.let { " @userDataType(\"${it.value}\")"} ?: ""
 
 private fun writeTypeName(type1: TypeDef): String {
     return when (type1) {

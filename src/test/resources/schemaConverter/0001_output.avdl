@@ -1,0 +1,16 @@
+@namespace("this.is.test.record.namespace")
+protocol TestRecord {
+    /** Test record event docs */
+    record TestRecord {
+        /** Simple string field doc */
+        string simpleStringField;
+
+        string simpleNoDocStringField;
+
+        string simpleStringFieldWithDefault = "default value";
+
+        union { null, string } nullableStringFieldWithDefault = null;
+    }
+
+
+}

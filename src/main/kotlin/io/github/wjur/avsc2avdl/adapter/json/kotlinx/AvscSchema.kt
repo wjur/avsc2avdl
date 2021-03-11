@@ -18,7 +18,8 @@ data class AvscField(
     val name: String,
     val doc: String? = null,
     val type: JsonElement,
-    val default: JsonElement? = NO_DEFAULT
+    val default: JsonElement? = NO_DEFAULT,
+    val userDataType: String? = null
 ) {
     companion object {
         val NO_DEFAULT = JsonPrimitive("NO_DEFAULT")

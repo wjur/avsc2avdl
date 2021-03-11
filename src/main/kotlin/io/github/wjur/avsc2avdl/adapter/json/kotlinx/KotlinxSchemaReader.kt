@@ -36,7 +36,8 @@ private fun AvscField.toSchemaField(): Field {
         name = this.name,
         documentation = this.doc,
         type = schemaType,
-        default = default.toSchemaDefault()
+        default = default.toSchemaDefault(),
+        userDataType = userDataType?.let(::UserDataType)
     )
 }
 

@@ -1,0 +1,33 @@
+@namespace("this.is.test.record.namespace")
+protocol TestRecord {
+    /** This is TestRecord event docs */
+    record TestRecord {
+        /** Some nested record */
+        union { null, NestedRecord } someRecordA = null;
+
+        NestedRecord someRecordB;
+    }
+
+    /** Nested record */
+    record NestedRecord {
+        /** Nested record id */
+        string @userDataType("NestedRecordId") fieldWithUserDataType;
+
+        array<NestedArrayItem> badges;
+    }
+
+    record NestedArrayItem {
+        /** Hidden data */
+        union { null, map<NestedMapItem> } __hiddenData = null;
+    }
+
+    record NestedMapItem {
+        SomeEnum enumField;
+    }
+
+    enum SomeEnum {
+        ABC,
+        XYZ,
+        THIRD
+    }
+}

@@ -1,0 +1,54 @@
+{
+  "type" : "record",
+  "name" : "TestRecord",
+  "namespace" : "this.is.test.record.namespace",
+  "doc" : "This is TestRecord event docs",
+  "fields" : [ {
+    "name" : "someRecordA",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "NestedRecord",
+      "doc" : "Nested record",
+      "fields" : [ {
+        "name" : "fieldWithUserDataType",
+        "type" : "string",
+        "doc" : "Nested record id",
+        "userDataType" : "NestedRecordId"
+      }, {
+        "name" : "badges",
+        "type" : {
+          "type" : "array",
+          "items" : {
+            "type" : "record",
+            "name" : "NestedArrayItem",
+            "fields" : [ {
+              "name" : "__hiddenData",
+              "type" : [ "null", {
+                "type" : "map",
+                "values" : {
+                  "type" : "record",
+                  "name" : "NestedMapItem",
+                  "fields" : [ {
+                    "name" : "enumField",
+                    "type" : {
+                      "type" : "enum",
+                      "name" : "SomeEnum",
+                      "symbols" : [ "ABC", "XYZ", "THIRD" ]
+                    }
+                  } ]
+                }
+              } ],
+              "doc" : "Hidden data",
+              "default" : null
+            } ]
+          }
+        }
+      } ]
+    } ],
+    "doc" : "Some nested record",
+    "default" : null
+  }, {
+    "name" : "someRecordB",
+    "type" : "NestedRecord"
+  } ]
+}

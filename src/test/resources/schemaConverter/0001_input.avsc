@@ -1,0 +1,27 @@
+{
+  "type": "record",
+  "name": "TestRecord",
+  "namespace": "this.is.test.record.namespace",
+  "doc": "Test record event docs",
+  "fields": [
+    {
+      "name": "simpleStringField",
+      "type": "string",
+      "doc": "Simple string field doc"
+    },
+    {
+      "name": "simpleNoDocStringField",
+      "type": "string"
+    },
+    {
+      "name": "simpleStringFieldWithDefault",
+      "type": "string",
+      "default": "default value"
+    },
+    {
+      "name": "nullableStringFieldWithDefault",
+      "type": ["null", "string"],
+      "default": null
+    }
+  ]
+}

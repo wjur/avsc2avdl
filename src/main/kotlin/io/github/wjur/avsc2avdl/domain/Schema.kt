@@ -11,8 +11,11 @@ data class Field(
     val name: String,
     override val documentation: String?,
     val type: TypeDef,
-    val default: DefaultValue?
+    val default: DefaultValue?,
+    val userDataType: UserDataType? = null
 ) : Documentable
+
+data class UserDataType(val value: String)
 
 sealed class DefaultValue
 object DefaultNull : DefaultValue()

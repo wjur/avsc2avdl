@@ -25,7 +25,8 @@ protocol SchemaName {
     }
 
 
-}"""
+}
+"""
 
         // expect
         assertThat(printer.writeString(schema)).isEqualTo(expected)
@@ -50,7 +51,8 @@ protocol SchemaName {
     }
 
 
-}"""
+}
+"""
 
         // expect
         assertThat(printer.writeString(schema(field))).isEqualTo(expected)
@@ -75,7 +77,8 @@ protocol SchemaName {
     }
 
 
-}"""
+}
+"""
 
         // expect
         assertThat(printer.writeString(schema(field))).isEqualTo(expected)
@@ -100,7 +103,8 @@ protocol SchemaName {
     }
 
 
-}"""
+}
+"""
 
         // expect
         assertThat(printer.writeString(schema(field))).isEqualTo(expected)
@@ -125,7 +129,8 @@ protocol SchemaName {
     }
 
 
-}"""
+}
+"""
 
         // expect
         assertThat(printer.writeString(schema(field))).isEqualTo(expected)
@@ -150,7 +155,8 @@ protocol SchemaName {
     }
 
 
-}"""
+}
+"""
 
         // expect
         assertThat(printer.writeString(schema(field))).isEqualTo(expected)
@@ -175,7 +181,8 @@ protocol SchemaName {
     }
 
 
-}"""
+}
+"""
 
         // expect
         assertThat(printer.writeString(schema(field))).isEqualTo(expected)
