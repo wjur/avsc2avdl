@@ -1,0 +1,49 @@
+{
+  "type" : "record",
+  "name" : "TestRecord",
+  "namespace" : "this.is.test.record.namespace",
+  "fields" : [ {
+    "name" : "value",
+    "type" : {
+      "type" : "string",
+      "java-class" : "java.math.BigDecimal"
+    }
+  }, {
+    "name" : "typedKeys",
+    "type" : {
+      "type" : "map",
+      "values" : "string",
+      "java-key-class" : "java.math.BigDecimal"
+    }
+  }, {
+    "name" : "typedValues",
+    "type" : {
+      "type" : "map",
+      "values" : {
+        "type" : "string",
+        "java-class" : "java.math.BigDecimal"
+      }
+    }
+  }, {
+    "name" : "typedMixed",
+    "type" : {
+      "type" : "map",
+      "values" : {
+        "type" : "string",
+        "java-class" : "java.math.BigDecimal"
+      },
+      "java-key-class" : "java.math.BigInt",
+      "java-class" : "java.util.ArrayList"
+    }
+  }, {
+      "name" : "typedMixedArray",
+      "type" : {
+        "type" : "array",
+        "items" : {
+          "type" : "string",
+          "java-class" : "java.math.BigDecimal"
+        },
+        "java-class" : "java.util.HashMap"
+      }
+  } ]
+}

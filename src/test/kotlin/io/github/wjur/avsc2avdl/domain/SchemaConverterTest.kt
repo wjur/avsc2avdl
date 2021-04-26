@@ -29,6 +29,16 @@ internal class SchemaConverterTest {
         assertThat(converter.convert(input)).isEqualTo(expectedOutput)
     }
 
+    @Test
+    fun `should convert schema with 'string' annotations`() {
+        // given
+        val input = fromResource("0003_annotations.avsc")
+        val expectedOutput = fromResource("0003_annotations.avdl")
+
+        // expect
+        assertThat(converter.convert(input)).isEqualTo(expectedOutput)
+    }
+
     private fun fromResource(name: String): String {
         val fileName = "schemaConverter/$name"
         val resource = SchemaConverterTest::class.java.classLoader.getResourceAsStream(fileName)!!

@@ -7,9 +7,7 @@ class SchemaPrinter {
 protocol ${schema.name} {
 ${schema.writeDocString(0)}${tabs(0)}record ${schema.name} {
 ${schema.fields.writeFieldsString(1)}
-${tabs(0)}}
-
-${schema.fields.writeTypesString(0)}
+${tabs(0)}}${schema.fields.writeTypesString(0)}
 }
 """
     }
@@ -37,10 +35,10 @@ private fun TypeDef.subRecords(): Sequence<PrintableClass> {
     return when (this) {
         is ReferenceByNameTypeDef,
         NullTypeDef,
-        IntTypeDef,
-        LongTypeDef,
+        is IntTypeDef,
+        is LongTypeDef,
         is StringTypeDef,
-        BooleanTypeDef -> emptySequence()
+        is BooleanTypeDef -> emptySequence()
         is EnumTypeDef -> sequenceOf(PrintableEnum(this))
         is UnionTypeDef -> this.subRecords()
         is RecordTypeDef -> this.subRecords()
@@ -54,6 +52,9 @@ private fun List<Field>.writeTypesString(level: Int): String {
         .flatMap { it.type.subRecords() }
         .map { it.writeString(level) }
         .joinToString("\n\n")
+        .takeIf { it.isNotEmpty() }
+        ?.let { "\n\n$it" }
+        ?: ""
 }
 
 private fun Documentable.writeDocString(level: Int): String {
@@ -83,14 +84,37 @@ private fun Field.writeTypeName(): String {
 }
 
 private fun Field.writeUserDataType(): String = userDataType?.let { " @userDataType(\"${it.value}\")"} ?: ""
+private fun TypeDef.writeJavaClass(): String {
+    val annotations = when(this) {
+        NullTypeDef,
+        is UnionTypeDef,
+        is RecordTypeDef,
+        is EnumTypeDef,
+        is ReferenceByNameTypeDef -> null
+        is IntTypeDef -> this.stringableJavaClass?.let { "@java-class(\"$it\")" }
+        is LongTypeDef -> this.stringableJavaClass?.let { "@java-class(\"$it\")" }
+        is StringTypeDef -> this.stringableJavaClass?.let { "@java-class(\"$it\")" }
+        is BooleanTypeDef -> this.stringableJavaClass?.let { "@java-class(\"$it\")" }
+        is MapTypeDef ->
+            sequenceOf(
+                this.stringableKeyJavaClass?.let { "@java-key-class(\"$it\")" },
+                this.stringableJavaClass?.let { "@java-class(\"$it\")" }
+            ).filterNotNull().joinToString(" ").takeIf { it.isNotEmpty() }
+        is ArrayTypeDef -> sequenceOf(
+            this.stringableKeyJavaClass?.let { "@java-key-class(\"$it\")" },
+            this.stringableJavaClass?.let { "@java-class(\"$it\")" }
+        ).filterNotNull().joinToString(" ").takeIf { it.isNotEmpty() }
+    }
+    return annotations?.let { "$it " } ?: ""
+}
 
 private fun writeTypeName(type1: TypeDef): String {
-    return when (type1) {
+    return type1.writeJavaClass() + when (type1) {
         NullTypeDef -> "null"
-        IntTypeDef -> "int"
-        LongTypeDef -> "long"
+        is IntTypeDef -> "int"
+        is LongTypeDef -> "long"
         is StringTypeDef -> "string"
-        BooleanTypeDef -> "boolean"
+        is BooleanTypeDef -> "boolean"
         is UnionTypeDef -> """union { ${type1.types.joinToString(", ") { writeTypeName(it) }} }"""
         is RecordTypeDef -> type1.name
         is ReferenceByNameTypeDef -> type1.name

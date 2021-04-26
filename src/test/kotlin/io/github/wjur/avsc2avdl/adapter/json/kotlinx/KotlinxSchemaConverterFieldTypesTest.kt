@@ -53,7 +53,7 @@ internal class KotlinxSchemaReaderFieldTypesTest {
                   "name": "someStringField",
                   "type": {
                       "type": "string",
-                      "avro.java.string": "string"
+                      "java-class": "java.math.BigDecimal"
                   }
               }
             ]
@@ -65,7 +65,7 @@ internal class KotlinxSchemaReaderFieldTypesTest {
 
         // then
         val field = schema.fields.first()
-        assertThat(field.type).isEqualTo(StringTypeDef("string"))
+        assertThat(field.type).isEqualTo(StringTypeDef("java.math.BigDecimal"))
         assertThat(field.name).isEqualTo("someStringField")
     }
 
@@ -88,7 +88,7 @@ internal class KotlinxSchemaReaderFieldTypesTest {
 
         // then
         val field = schema.fields.first()
-        assertThat(field.type).isEqualTo(IntTypeDef)
+        assertThat(field.type).isEqualTo(IntTypeDef())
         assertThat(field.name).isEqualTo("someIntField")
     }
 
@@ -111,7 +111,7 @@ internal class KotlinxSchemaReaderFieldTypesTest {
 
         // then
         val field = schema.fields.first()
-        assertThat(field.type).isEqualTo(LongTypeDef)
+        assertThat(field.type).isEqualTo(LongTypeDef())
         assertThat(field.name).isEqualTo("someLongField")
     }
 
@@ -134,7 +134,7 @@ internal class KotlinxSchemaReaderFieldTypesTest {
 
         // then
         val field = schema.fields.first()
-        assertThat(field.type).isEqualTo(BooleanTypeDef)
+        assertThat(field.type).isEqualTo(BooleanTypeDef())
         assertThat(field.name).isEqualTo("someBooleanField")
     }
 
@@ -163,7 +163,7 @@ internal class KotlinxSchemaReaderFieldTypesTest {
         // then
         val field = schema.fields.first()
         assertThat(field.type).isEqualTo(UnionTypeDef(listOf(
-            NullTypeDef, StringTypeDef(), IntTypeDef, BooleanTypeDef
+            NullTypeDef, StringTypeDef(), IntTypeDef(), BooleanTypeDef()
         )))
         assertThat(field.name).isEqualTo("someUnionField")
     }
@@ -261,7 +261,7 @@ internal class KotlinxSchemaReaderFieldTypesTest {
         assertThat(field.type).isEqualTo(RecordTypeDef(
             "RecordTypeName", "Record type docs", listOf(
                 Field("strField", null, StringTypeDef(), null),
-                Field("booleanField", null, BooleanTypeDef, null),
+                Field("booleanField", null, BooleanTypeDef(), null),
             )
         ))
         assertThat(field.name).isEqualTo("someRecordField")

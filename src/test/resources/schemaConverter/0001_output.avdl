@@ -11,6 +11,4 @@ protocol TestRecord {
 
         union { null, string } nullableStringFieldWithDefault = null;
     }
-
-
 }

@@ -97,6 +97,9 @@ private fun JsonElement.toSchemaTypeDef(): TypeDef {
         JsonNull -> NullTypeDef
         is JsonObject -> {
             when (this.getValue("type").jsonPrimitive.content) {
+                "int" -> this.toIntTypeDef()
+                "long" -> this.toLongTypeDef()
+                "boolean" -> this.toBooleanTypeDef()
                 "array" -> this.toArrayTypeDef()
                 "record" -> this.toRecordTypeDef()
                 "enum" -> this.toEnumTypeDef()
@@ -117,15 +120,37 @@ private fun JsonObject.toEnumTypeDef(): EnumTypeDef {
 }
 
 private fun JsonObject.toMapTypeDef(): MapTypeDef {
-    return MapTypeDef(this["values"]?.toSchemaTypeDef()!!)
+    return MapTypeDef(
+        this["values"]?.toSchemaTypeDef()!!,
+        this["java-class"]?.jsonPrimitive?.content,
+        this["java-key-class"]?.jsonPrimitive?.content,
+    )
+}
+
+private fun JsonObject.toIntTypeDef(): IntTypeDef {
+    return IntTypeDef(this["java-class"]?.jsonPrimitive?.content)
+}
+
+private fun JsonObject.toLongTypeDef(): LongTypeDef {
+    return LongTypeDef(this["java-class"]?.jsonPrimitive?.content)
+}
+
+private fun JsonObject.toBooleanTypeDef(): BooleanTypeDef {
+    return BooleanTypeDef(this["java-class"]?.jsonPrimitive?.content)
 }
 
 private fun JsonObject.toStringTypeDef(): StringTypeDef {
-    return StringTypeDef(this["avro.java.string"]?.jsonPrimitive?.content!!)
+    return StringTypeDef(
+        this["java-class"]?.jsonPrimitive?.content
+    )
 }
 
 private fun JsonObject.toArrayTypeDef(): ArrayTypeDef {
-    return ArrayTypeDef(this["items"]?.toSchemaTypeDef()!!)
+    return ArrayTypeDef(
+        this["items"]?.toSchemaTypeDef()!!,
+        this["java-class"]?.jsonPrimitive?.content,
+        this["java-key-class"]?.jsonPrimitive?.content,
+    )
 }
 
 private fun JsonObject.toRecordTypeDef(): RecordTypeDef {
@@ -144,10 +169,10 @@ private fun JsonObject.toRecordTypeDef(): RecordTypeDef {
 private fun String.toSchemaPrimitiveType(): TypeDef {
     return when (this) {
         "null" -> NullTypeDef
-        "int" -> IntTypeDef
-        "long" -> LongTypeDef
+        "int" -> IntTypeDef()
+        "long" -> LongTypeDef()
         "string" -> StringTypeDef()
-        "boolean" -> BooleanTypeDef
+        "boolean" -> BooleanTypeDef()
         else -> ReferenceByNameTypeDef(this)
     }
 }

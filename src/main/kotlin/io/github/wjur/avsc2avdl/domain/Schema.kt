@@ -27,19 +27,27 @@ object DefaultEmptyMap : DefaultValue()
 
 
 sealed class TypeDef
+
 object NullTypeDef : TypeDef()
-object IntTypeDef : TypeDef()
-object LongTypeDef : TypeDef()
-data class StringTypeDef(val javaClass: String? = null) : TypeDef()
-object BooleanTypeDef : TypeDef()
+data class IntTypeDef(val stringableJavaClass: String? = null) : TypeDef()
+data class LongTypeDef(val stringableJavaClass: String? = null) : TypeDef()
+data class StringTypeDef(val stringableJavaClass: String? = null) : TypeDef()
+data class BooleanTypeDef(val stringableJavaClass: String? = null) : TypeDef()
 data class UnionTypeDef(val types: List<TypeDef>) : TypeDef()
 data class RecordTypeDef(
     val name: String,
     override val documentation: String?,
     val fields: List<Field>
 ) : TypeDef(), Documentable
-data class MapTypeDef(val valueType: TypeDef) : TypeDef()
-data class ArrayTypeDef(val itemType: TypeDef) : TypeDef()
+data class MapTypeDef(
+    val valueType: TypeDef,
+    val stringableJavaClass: String? = null,
+    val stringableKeyJavaClass: String? = null) : TypeDef()
+data class ArrayTypeDef(
+    val itemType: TypeDef,
+    val stringableJavaClass: String? = null,
+    val stringableKeyJavaClass: String? = null
+) : TypeDef()
 data class EnumTypeDef(
     val name: String,
     override val documentation: String?,

@@ -23,8 +23,6 @@ protocol SchemaName {
     record SchemaName {
 
     }
-
-
 }
 """
 
@@ -49,8 +47,6 @@ protocol SchemaName {
         /** this is test field doc */
         string testField = "some default value";
     }
-
-
 }
 """
 
@@ -64,7 +60,7 @@ protocol SchemaName {
         val field = Field(
             "testField",
             "this is test field doc",
-            IntTypeDef,
+            IntTypeDef(),
             DefaultNumber(5)
         )
 
@@ -75,8 +71,6 @@ protocol SchemaName {
         /** this is test field doc */
         int testField = 5;
     }
-
-
 }
 """
 
@@ -90,7 +84,7 @@ protocol SchemaName {
         val field = Field(
             "testField",
             "this is test field doc",
-            LongTypeDef,
+            LongTypeDef(),
             DefaultNumber(5)
         )
 
@@ -101,8 +95,6 @@ protocol SchemaName {
         /** this is test field doc */
         long testField = 5;
     }
-
-
 }
 """
 
@@ -116,7 +108,7 @@ protocol SchemaName {
         val field = Field(
             "testField",
             "this is test field doc",
-            BooleanTypeDef,
+            BooleanTypeDef(),
             DefaultBoolean(true)
         )
 
@@ -127,8 +119,6 @@ protocol SchemaName {
         /** this is test field doc */
         boolean testField = true;
     }
-
-
 }
 """
 
@@ -142,7 +132,7 @@ protocol SchemaName {
         val field = Field(
             "testField",
             "this is test field doc",
-            ArrayTypeDef(IntTypeDef),
+            ArrayTypeDef(IntTypeDef()),
             DefaultEmptyArray
         )
 
@@ -153,8 +143,6 @@ protocol SchemaName {
         /** this is test field doc */
         array<int> testField = [];
     }
-
-
 }
 """
 
@@ -168,7 +156,7 @@ protocol SchemaName {
         val field = Field(
             "testField",
             "this is test field doc",
-            MapTypeDef(IntTypeDef),
+            MapTypeDef(IntTypeDef()),
             DefaultEmptyMap
         )
 
@@ -179,8 +167,6 @@ protocol SchemaName {
         /** this is test field doc */
         map<int> testField = {};
     }
-
-
 }
 """
 

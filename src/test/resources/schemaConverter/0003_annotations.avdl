@@ -1,0 +1,14 @@
+@namespace("this.is.test.record.namespace")
+protocol TestRecord {
+    record TestRecord {
+        @java-class("java.math.BigDecimal") string value;
+
+        @java-key-class("java.math.BigDecimal") map<string> typedKeys;
+
+        map<@java-class("java.math.BigDecimal") string> typedValues;
+
+        @java-key-class("java.math.BigInt") @java-class("java.util.ArrayList") map<@java-class("java.math.BigDecimal") string> typedMixed;
+
+        @java-class("java.util.HashMap") array<@java-class("java.math.BigDecimal") string> typedMixedArray;
+    }
+}
