@@ -1,11 +1,12 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.4.10"
-    kotlin("plugin.serialization") version "1.4.10"
-    java
-    application
+    kotlin("jvm") version "2.0.20"
+    kotlin("plugin.serialization") version "2.0.20"
+    id("application")
 }
+
 group = "me.user"
 version = "0.9.1"
 
@@ -19,8 +20,11 @@ dependencies {
     testImplementation(group = "org.assertj", name = "assertj-core", version = "3.13.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.2.0")
 }
-tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "1.8"
+tasks.withType<KotlinCompile> {
+    compilerOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = JvmTarget.valueOf("JVM_21")
+    }
 }
 
 tasks.withType<Test> {
@@ -28,5 +32,5 @@ tasks.withType<Test> {
 }
 
 application {
-    mainClassName = "MainKt"
+    mainClass.set("MainKt")
 }
